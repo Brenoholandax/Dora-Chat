@@ -1,0 +1,24 @@
+# Web server
+flask
+flask-cors
+
+# Túnel HTTP
+pyngrok
+
+# WhatsApp via Twilio
+twilio
+
+# IA (caso queira reativar PydanticAI futuramente)
+pydantic-ai
+
+# Banco de Dados
+mysql-connector-python
+
+# Dados em CSV
+pandas
+
+# Variáveis de ambiente
+python-dotenv
+
+# Integração direta com GPT
+openai
