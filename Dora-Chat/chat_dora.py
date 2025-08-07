@@ -5,6 +5,8 @@ from pyngrok import conf, ngrok
 from dotenv import load_dotenv
 from openai import OpenAI
 import os, mysql.connector
+from agentes.financeiro import processar_pergunta_financeira
+from banco.conexao import consultar_banco
 
 # 🔐 Carrega variáveis do .env
 load_dotenv()
@@ -67,6 +69,9 @@ def gerar_resposta(mensagem_usuario: str) -> str:
         query = mensagem_usuario[4:].strip()
         resultado = consultar_banco(query)
         return f"📊 Resultado da consulta:\n{resultado}"
+
+    if any(p in msg for p in ["título", "financeiro", "rendimento", "/financeiro"]):
+        return processar_pergunta_financeira(mensagem_usuario)
 
     if "dora" in msg:
        
@@ -131,5 +136,5 @@ def sms_reply():
     resposta_twilio = MessagingResponse()
     resposta_twilio.message(resposta)
     return Response(str(resposta_twilio), mimetype="application/xml")
-
+ 
 app.run(host="0.0.0.0", port=5000)
