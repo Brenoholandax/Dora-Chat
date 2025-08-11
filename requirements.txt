@@ -1,6 +1,7 @@
 # Web server
 flask
 flask-cors
+gunicorn
 
 # Túnel HTTP
 pyngrok
@@ -8,17 +9,25 @@ pyngrok
 # WhatsApp via Twilio
 twilio
 
-# IA (caso queira reativar PydanticAI futuramente)
+# IA (opcional - PydanticAI)
 pydantic-ai
 
-# Banco de Dados
+# Banco de Dados MySQL
 mysql-connector-python
 
-# Dados em CSV
+# Manipulação de dados CSV
 pandas
+python-dateutil
+unidecode
 
-# Variáveis de ambiente
+# Variáveis de ambiente (.env)
 python-dotenv
 
 # Integração direta com GPT
 openai
+
+# Requisições HTTP
+requests
+
+# Testes automatizados
+pytest
