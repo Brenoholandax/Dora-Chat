@@ -1,12 +1,13 @@
+# banco/conexao.py
 import mysql.connector
 import os
 from dotenv import load_dotenv, find_dotenv
+from sqlalchemy import create_engine
 
-# garante que o .env seja encontrado a partir de qualquer subpasta
 load_dotenv(find_dotenv())
 
 def get_connection():
-    """Abre conexão MySQL usando variáveis do .env"""
+    """Abre uma conexão MySQL padrão."""
     return mysql.connector.connect(
         host=os.getenv("DB_HOST", "127.0.0.1"),
         port=int(os.getenv("DB_PORT", 3306)),
@@ -14,6 +15,18 @@ def get_connection():
         password=os.getenv("DB_PASSWORD"),
         database=os.getenv("DB_NAME"),
     )
+
+def get_sqlalchemy_engine():
+    """Cria um 'engine' de conexão para o SQLAlchemy que o Pandas entende."""
+    user = os.getenv("DB_USER")
+    password = os.getenv("DB_PASSWORD")
+    host = os.getenv("DB_HOST", "127.0.0.1")
+    port = os.getenv("DB_PORT", 3306)
+    db_name = os.getenv("DB_NAME")
+    
+    # Formato da URL de conexão: mysql+mysqlconnector://user:password@host:port/database
+    db_url = f"mysql+mysqlconnector://{user}:{password}@{host}:{port}/{db_name}"
+    return create_engine(db_url)
 
 def consultar_banco(query: str) -> str:
     try:
